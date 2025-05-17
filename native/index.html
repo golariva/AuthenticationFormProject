@@ -1,4 +1,3 @@
-<!-- native/index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -8,18 +7,15 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="snow-container"></div>
   <header>
     <h1>Добро пожаловать</h1>
+    <button id="accessibility-toggle" type="button">Версия для слабовидящих</button>
   </header>
 
   <main>
     <form id="login-form" aria-labelledby="login-heading">
       <h2 id="login-heading">Вход</h2>
-
-      <div class="social-buttons">
-        <button type="button">Войти через VK</button>
-        <button type="button">Войти через Google</button>
-      </div>
 
       <div class="form-group">
         <label for="login">Логин:</label>
@@ -37,11 +33,54 @@
       </div>
 
       <button id="login-btn" type="submit">Войти</button>
+
+      <div id="vk-container" class="social-buttons">
+          <script src="https://unpkg.com/@vkid/sdk@<3.0.0/dist-sdk/umd/index.js"></script>
+          <script type="text/javascript">
+            if ('VKIDSDK' in window) {
+              const VKID = window.VKIDSDK;
+        
+              VKID.Config.init({
+                app: 52478364,
+                redirectUrl: 'https://mysite.com',
+                responseMode: VKID.ConfigResponseMode.Callback,
+                source: VKID.ConfigSource.LOWCODE,
+                scope: '', // Заполните нужными доступами по необходимости
+              });
+        
+              const oAuth = new VKID.OAuthList();
+        
+              oAuth.render({
+                container: document.currentScript.parentElement,
+                oauthList: [
+                  'vkid'
+                ]
+              })
+              .on(VKID.WidgetEvents.ERROR, vkidOnError)
+              .on(VKID.OAuthListInternalEvents.LOGIN_SUCCESS, function (payload) {
+                const code = payload.code;
+                const deviceId = payload.device_id;
+        
+                VKID.Auth.exchangeCode(code, deviceId)
+                  .then(vkidOnSuccess)
+                  .catch(vkidOnError);
+              });
+            
+              function vkidOnSuccess(data) {
+                alert('Авторизация пройдена успешно');
+              }
+            
+              function vkidOnError(error) {
+                alert('Ошибка авторизации. Повторите попытку позже.');
+              }
+            }
+          </script>
+      </div>
     </form>
   </main>
 
   <footer>
-    <p>© 2025 Форма авторизации</p>
+    <p>Форма авторизации</p>
   </footer>
 
   <script src="script.js"></script>
