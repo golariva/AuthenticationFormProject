@@ -2,21 +2,23 @@ const form = document.getElementById('login-form');
 const loginInput = document.getElementById('login');
 const passwordInput = document.getElementById('password');
 
+// Перенаправление на главную страницу при сохраненной сессии
 if (localStorage.getItem('session') === 'active') {
   window.location.href = 'success.html';
 }
 
-const createSnowflake = () => {
-  const flake = document.createElement('div');
-  flake.className = 'snowflake';
-  flake.style.left = Math.random() * 100 + 'vw';
-  flake.style.animationDuration = (5 + Math.random() * 5) + 's';
-  flake.textContent = '🌷';
-  document.body.appendChild(flake);
+// Генерация тюльпанчиков
+const createTulip = () => {
+  const tulip = document.createElement('div');
+  tulip.className = 'tulip';
+  tulip.style.left = Math.random() * 100 + 'vw';
+  tulip.style.animationDuration = (5 + Math.random() * 5) + 's';
+  tulip.textContent = '🌷';
+  document.body.appendChild(tulip);
 };
 
 for (let i = 0; i < 30; i++) {
-  createSnowflake();
+  createTulip();
 }
 
 // Проверка логина и пароля
