@@ -7,6 +7,13 @@ body {
   min-height: 100vh;
 }
 
+/* Добавлено чтобы контейнер react-root растягивался на всю высоту */
+#react-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header,
 footer {
   background: #0a042e;
@@ -70,7 +77,6 @@ input[required] {
 }
 
 .tulip-container {
-  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
