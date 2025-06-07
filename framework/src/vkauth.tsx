@@ -32,7 +32,7 @@ const VkAuth: React.FC = () => {
             container: containerRef.current,
             oauthList: ["vkid"],
           })
-          .on(VKID.WidgetEvents.ERROR, (err: any) => {
+          .on(VKID.WidgetEvents.ERROR, (_err: any) => {
             alert("Ошибка авторизации. Повторите попытку позже.");
           })
           .on(VKID.OAuthListInternalEvents.LOGIN_SUCCESS, (payload: any) => {
@@ -51,7 +51,11 @@ const VkAuth: React.FC = () => {
     document.body.appendChild(script);
   }, []);
 
-  return <div ref={containerRef} className="social-buttons" />;
+  return (
+    <div data-testid="vk-auth-container">
+      <div ref={containerRef} className="social-buttons" />
+    </div>
+  );
 };
 
 export default VkAuth;

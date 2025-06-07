@@ -32,7 +32,6 @@ const LoginForm: React.FC<Props> = ({ onSuccess }) => {
     }
   };
 
-  // Просто заглушка для ВК-кнопки — пока alert
   const handleVkLoginClick = () => {
     alert("Здесь будет авторизация через ВК");
   };
